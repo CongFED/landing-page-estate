@@ -1,11 +1,18 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Container, Box } from "@mui/material"
-import { ChevronDown, HelpCircle } from "lucide-react"
-import { useState } from "react"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Container,
+  Box,
+} from "@mui/material";
+import { ChevronDown, HelpCircle } from "lucide-react";
+import { useState } from "react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const faqs = [
   {
@@ -48,39 +55,43 @@ const faqs = [
     answer:
       "Chúng tôi tư vấn dựa trên: Phân tích thị trường và xu hướng giá, Đánh giá tiềm năng tăng giá khu vực, Tính toán lợi nhuận cho thuê, Đề xuất thời điểm mua/bán tối ưu. Đội ngũ phân tích của chúng tôi có hơn 10 năm kinh nghiệm trong lĩnh vực đầu tư BĐS.",
   },
-]
+];
 
 export function FAQSection() {
-  const [expanded, setExpanded] = useState<string | false>("panel0")
+  const [expanded, setExpanded] = useState<string | false>("panel0");
 
-  const titleAnimation = useScrollAnimation({ threshold: 0.2 })
-  const faqsAnimation = useScrollAnimation({ threshold: 0.05 })
-  const contactAnimation = useScrollAnimation({ threshold: 0.3 })
+  const titleAnimation = useScrollAnimation({ threshold: 0.2 });
+  const faqsAnimation = useScrollAnimation({ threshold: 0.05 });
+  const contactAnimation = useScrollAnimation({ threshold: 0.3 });
 
-  const handleChange = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false)
-  }
+  const handleChange =
+    (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
   return (
     <section className="py-20 bg-white">
       <Container maxWidth="lg">
         <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 10,
+          }}
           ref={titleAnimation.ref as any}
           className={`text-center mb-12 transition-all duration-1000 ${
-            titleAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            titleAnimation.isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
           }`}
         >
           <Box className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4">
             <HelpCircle className="w-8 h-8 text-primary" />
           </Box>
-          <Typography variant="overline" className="text-primary font-semibold tracking-wider mb-2 block">
-            CÂU HỎI THƯỜNG GẶP
-          </Typography>
+
           <Typography variant="h3" className="font-bold mb-4">
-            Giải Đáp <span className="text-primary">Mọi Thắc Mắc</span>
-          </Typography>
-          <Typography variant="body1" color="text.secondary" className="max-w-2xl mx-auto">
-            Tổng hợp các câu hỏi phổ biến nhất về quy trình mua bán và đầu tư bất động sản
+            <span className="text-primary">CÂU HỎI THƯỜNG GẶP</span>
           </Typography>
         </div>
 
@@ -91,10 +102,14 @@ export function FAQSection() {
               expanded={expanded === `panel${index}`}
               onChange={handleChange(`panel${index}`)}
               className={`mb-4 border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-700 ${
-                faqsAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+                faqsAnimation.isVisible
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-10"
               }`}
               style={{
-                transitionDelay: faqsAnimation.isVisible ? `${index * 80}ms` : "0ms",
+                transitionDelay: faqsAnimation.isVisible
+                  ? `${index * 80}ms`
+                  : "0ms",
               }}
               elevation={0}
               sx={{
@@ -115,48 +130,26 @@ export function FAQSection() {
                   },
                 }}
               >
-                <Typography variant="h6" className="font-semibold text-neutral-800">
+                <Typography
+                  variant="h6"
+                  className="font-semibold text-neutral-800"
+                >
                   {faq.question}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails className="px-6 pb-6 pt-0">
-                <Typography variant="body1" color="text.secondary" className="leading-relaxed">
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  className="leading-relaxed"
+                >
                   {faq.answer}
                 </Typography>
               </AccordionDetails>
             </Accordion>
           ))}
         </Box>
-
-        <Box
-          ref={contactAnimation.ref as any}
-          className={`text-center mt-12 transition-all duration-1000 ${
-            contactAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <Typography variant="body1" color="text.secondary" className="mb-4">
-            Vẫn còn thắc mắc? Đội ngũ của chúng tôi luôn sẵn sàng hỗ trợ bạn
-          </Typography>
-          <Box className="flex flex-wrap gap-4 justify-center">
-            <a href="tel:1900123456" className="no-underline">
-              <Box className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors">
-                <span className="text-xl">📞</span>
-                <Typography variant="body1" className="font-semibold">
-                  Hotline: 1900 123 456
-                </Typography>
-              </Box>
-            </a>
-            <a href="mailto:support@realestate.vn" className="no-underline">
-              <Box className="flex items-center gap-2 px-6 py-3 bg-neutral-100 text-neutral-800 rounded-xl hover:bg-neutral-200 transition-colors">
-                <span className="text-xl">✉️</span>
-                <Typography variant="body1" className="font-semibold">
-                  Email: support@realestate.vn
-                </Typography>
-              </Box>
-            </a>
-          </Box>
-        </Box>
       </Container>
     </section>
-  )
+  );
 }

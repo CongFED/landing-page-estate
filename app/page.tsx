@@ -10,10 +10,12 @@ import { FAQSection } from "@/components/faq-section";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { Navigation } from "@/components/navigation";
+import { LoadingScreen } from "@/components/loading-screen";
 
 export default function RealEstatePage() {
   return (
     <main className="min-h-screen bg-background">
+      <LoadingScreen />
       <Navigation />
       <HeroSection />
       <StatsSection />
@@ -21,7 +23,7 @@ export default function RealEstatePage() {
 
       <ServicesSection />
       {/* <SocialProofSection /> */}
-      <LegalInfoSection />
+      {/* <LegalInfoSection /> */}
       <ProcessSection />
       <FAQSection />
       <CTASection />

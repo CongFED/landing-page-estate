@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Card as MuiCard,
@@ -8,11 +8,11 @@ import {
   Chip as MuiChip,
   Typography,
   Box,
-} from "@mui/material"
-import { Button } from "@/components/ui/button"
-import { MapPin, Bed, Bath, Maximize, Heart } from "lucide-react"
-import { useState } from "react"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+} from "@mui/material";
+import { Button } from "@/components/ui/button";
+import { MapPin, Bed, Bath, Maximize, Heart } from "lucide-react";
+import { useState } from "react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const properties = [
   {
@@ -58,12 +58,53 @@ const properties = [
     image: "/modern-commercial-shophouse-facade.jpg",
     tag: "Mới",
   },
-]
+];
+const ALL_PROPERTIES = [
+  ...properties,
+  {
+    id: 5,
+    title: "Căn Hộ Masteri Thảo Điền",
+    location: "Quận 2, TP. HCM",
+    price: "7.8 tỷ",
+    beds: 2,
+    baths: 2,
+    area: "90m²",
+    image: "/TD.jpg",
+    tag: "Hot",
+  },
+  {
+    id: 6,
+    title: "Biệt Thự Sala Đại Quang Minh",
+    location: "Thủ Thiêm, TP. HCM",
+    price: "45 tỷ",
+    beds: 6,
+    baths: 5,
+    area: "420m²",
+    image: "/bg-stats.png",
+  },
+  // có thể thêm nữa
+];
 
-function PropertyCard({ property, index }: { property: (typeof properties)[0]; index: number }) {
-  const [isHovered, setIsHovered] = useState(false)
-  const [isFavorite, setIsFavorite] = useState(false)
+function PropertyCard({
+  property,
+  index,
+}: {
+  property: (typeof properties)[0];
+  index: number;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const titleAnimation = useScrollAnimation({ threshold: 0.2 });
+  const propertiesAnimation = useScrollAnimation({ threshold: 0.1 });
+  const buttonAnimation = useScrollAnimation({ threshold: 0.3 });
 
+  const INITIAL_COUNT = 4;
+
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+
+  const isAllVisible = visibleCount >= ALL_PROPERTIES.length;
+
+  const visibleProperties = ALL_PROPERTIES.slice(0, visibleCount);
   return (
     <MuiCard
       className="group"
@@ -127,7 +168,9 @@ function PropertyCard({ property, index }: { property: (typeof properties)[0]; i
         >
           <Heart
             size={18}
-            className={`transition-colors ${isFavorite ? "fill-red-500 text-red-500" : "text-foreground"}`}
+            className={`transition-colors ${
+              isFavorite ? "fill-red-500 text-red-500" : "text-foreground"
+            }`}
           />
         </IconButton>
 
@@ -142,12 +185,22 @@ function PropertyCard({ property, index }: { property: (typeof properties)[0]; i
             transition: "all 0.3s",
           }}
         >
-          <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">Xem Chi Tiết</Button>
+          <Button
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 "
+            style={{ cursor: "pointer" }}
+          >
+            Xem Chi Tiết
+          </Button>
         </Box>
       </Box>
 
       <MuiCardContent sx={{ p: 2.5 }}>
-        <Typography variant="h6" fontWeight={600} gutterBottom className="leading-snug">
+        <Typography
+          variant="h6"
+          fontWeight={600}
+          gutterBottom
+          className="leading-snug"
+        >
           {property.title}
         </Typography>
 
@@ -191,9 +244,20 @@ function PropertyCard({ property, index }: { property: (typeof properties)[0]; i
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Box>
-            <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              display="block"
+              gutterBottom
+            >
               Giá bán
             </Typography>
             <Typography variant="h5" color="primary" fontWeight={700}>
@@ -203,41 +267,66 @@ function PropertyCard({ property, index }: { property: (typeof properties)[0]; i
         </Box>
       </MuiCardContent>
     </MuiCard>
-  )
+  );
 }
 
 export function FeaturedProperties() {
-  const titleAnimation = useScrollAnimation({ threshold: 0.2 })
-  const propertiesAnimation = useScrollAnimation({ threshold: 0.1 })
-  const buttonAnimation = useScrollAnimation({ threshold: 0.3 })
+  const titleAnimation = useScrollAnimation({ threshold: 0.2 });
+  const propertiesAnimation = useScrollAnimation({ threshold: 0.1 });
+  const buttonAnimation = useScrollAnimation({ threshold: 0.3 });
 
+  const INITIAL_COUNT = 4;
+
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+
+  const isAllVisible = visibleCount >= ALL_PROPERTIES.length;
+
+  const visibleProperties = ALL_PROPERTIES.slice(0, visibleCount);
   return (
     <section id="properties" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div
           ref={titleAnimation.ref as any}
           className={`max-w-2xl mb-12 transition-all duration-1000 ${
-            titleAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            titleAnimation.isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
           }`}
         >
-          <Typography variant="h2" fontWeight={700} gutterBottom className="leading-tight">
+          <Typography
+            variant="h2"
+            fontWeight={700}
+            gutterBottom
+            className="leading-tight"
+          >
             Dự Án <span className="text-primary">Nổi Bật</span>
           </Typography>
-          <Typography variant="body1" color="text.secondary" className="leading-relaxed">
-            Khám phá những bất động sản cao cấp được lựa chọn kỹ lưỡng, đáp ứng mọi tiêu chuẩn khắt khe nhất về vị trí,
-            thiết kế và tiện ích.
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            className="leading-relaxed"
+          >
+            Khám phá những bất động sản cao cấp được lựa chọn kỹ lưỡng, đáp ứng
+            mọi tiêu chuẩn khắt khe nhất về vị trí, thiết kế và tiện ích.
           </Typography>
         </div>
 
-        <div ref={propertiesAnimation.ref as any} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {properties.map((property, index) => (
+        <div
+          ref={propertiesAnimation.ref as any}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+        >
+          {visibleProperties.map((property, index) => (
             <div
               key={property.id}
               className={`transition-all duration-700 ${
-                propertiesAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+                propertiesAnimation.isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-20"
               }`}
               style={{
-                transitionDelay: propertiesAnimation.isVisible ? `${index * 120}ms` : "0ms",
+                transitionDelay: propertiesAnimation.isVisible
+                  ? `${index * 120}ms`
+                  : "0ms",
               }}
             >
               <PropertyCard property={property} index={index} />
@@ -248,14 +337,30 @@ export function FeaturedProperties() {
         <div
           ref={buttonAnimation.ref as any}
           className={`text-center transition-all duration-1000 ${
-            buttonAnimation.isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-5 scale-95"
+            buttonAnimation.isVisible
+              ? "opacity-100 translate-y-0 scale-100"
+              : "opacity-0 translate-y-5 scale-95"
           }`}
         >
-          <Button variant="outline" size="lg">
-            Xem Tất Cả Dự Án
+          <Button
+            variant="outline"
+            size="lg"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              if (isAllVisible) {
+                setVisibleCount(INITIAL_COUNT);
+                document
+                  .getElementById("properties")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              } else {
+                setVisibleCount((prev) => prev + 4);
+              }
+            }}
+          >
+            {isAllVisible ? "Ẩn Bớt Dự Án" : "Xem Thêm Dự Án"}
           </Button>
         </div>
       </div>
     </section>
-  )
+  );
 }

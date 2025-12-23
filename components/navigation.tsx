@@ -104,7 +104,7 @@ export function Navigation() {
               size="small"
               sx={{ textTransform: "none" }}
             >
-              Đăng Ký Tư Vấn
+              <a href="#contact">Đăng Ký Tư Vấn</a>
             </MuiButton>
           </Box>
 

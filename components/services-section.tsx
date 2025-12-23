@@ -1,14 +1,27 @@
-"use client"
+"use client";
 
-import { Card as MuiCard, CardContent as MuiCardContent, Typography, Box } from "@mui/material"
-import { Search, FileCheck, Key, TrendingUp, Shield, HeadphonesIcon } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import {
+  Card as MuiCard,
+  CardContent as MuiCardContent,
+  Typography,
+  Box,
+} from "@mui/material";
+import {
+  Search,
+  FileCheck,
+  Key,
+  TrendingUp,
+  Shield,
+  HeadphonesIcon,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const services = [
   {
     icon: Search,
     title: "Tìm Kiếm BĐS",
-    description: "Hệ thống tìm kiếm thông minh với hàng ngàn bất động sản chất lượng.",
+    description:
+      "Hệ thống tìm kiếm thông minh với hàng ngàn bất động sản chất lượng.",
   },
   {
     icon: FileCheck,
@@ -35,30 +48,36 @@ const services = [
     title: "Hỗ Trợ 24/7",
     description: "Đội ngũ chăm sóc khách hàng sẵn sàng hỗ trợ mọi lúc.",
   },
-]
+];
 
-function ServiceCard({ service, index }: { service: (typeof services)[0]; index: number }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+function ServiceCard({
+  service,
+  index,
+}: {
+  service: (typeof services)[0];
+  index: number;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          setIsVisible(true);
         }
       },
-      { threshold: 0.2 },
-    )
+      { threshold: 0.2 }
+    );
 
     if (ref.current) {
-      observer.observe(ref.current)
+      observer.observe(ref.current);
     }
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
-  const Icon = service.icon
+  const Icon = service.icon;
 
   return (
     <MuiCard
@@ -94,18 +113,22 @@ function ServiceCard({ service, index }: { service: (typeof services)[0]; index:
           <Icon
             className="transition-colors group-hover:text-white"
             size={28}
-            style={{ color: "var(--color-primary)" }}
+            style={{ color: "white" }}
           />
         </Box>
         <Typography variant="h6" fontWeight={600} gutterBottom>
           {service.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" className="leading-relaxed">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          className="leading-relaxed"
+        >
           {service.description}
         </Typography>
       </MuiCardContent>
     </MuiCard>
-  )
+  );
 }
 
 export function ServicesSection() {
@@ -113,12 +136,21 @@ export function ServicesSection() {
     <section id="services" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <Typography variant="h2" fontWeight={700} gutterBottom className="leading-tight">
+          <Typography
+            variant="h2"
+            fontWeight={700}
+            gutterBottom
+            className="leading-tight"
+          >
             Dịch Vụ <span className="text-primary">Toàn Diện</span>
           </Typography>
-          <Typography variant="body1" color="text.secondary" className="leading-relaxed">
-            Chúng tôi cung cấp giải pháp bất động sản trọn gói, đảm bảo trải nghiệm liền mạch từ tìm kiếm đến hoàn tất
-            giao dịch.
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            className="leading-relaxed"
+          >
+            Chúng tôi cung cấp giải pháp bất động sản trọn gói, đảm bảo trải
+            nghiệm liền mạch từ tìm kiếm đến hoàn tất giao dịch.
           </Typography>
         </div>
 
@@ -129,5 +161,5 @@ export function ServicesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

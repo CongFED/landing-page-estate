@@ -1,8 +1,15 @@
-"use client"
+"use client";
 
-import { Card, CardContent, Typography, Container, Box, Button } from "@mui/material"
-import { Search, FileText, Home, Key, ArrowRight } from "lucide-react"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import {
+  Card,
+  CardContent,
+  Typography,
+  Container,
+  Box,
+  Button,
+} from "@mui/material";
+import { Search, FileText, Home, Key, ArrowRight } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const processSteps = [
   {
@@ -36,34 +43,50 @@ const processSteps = [
     icon: Key,
     step: "04",
     title: "Bàn Giao & Hỗ Trợ",
-    description: "Hoàn tất thủ tục, hỗ trợ vay ngân hàng, bàn giao nhà và giấy tờ. Chăm sóc sau bán hàng lâu dài.",
+    description:
+      "Hoàn tất thủ tục, hỗ trợ vay ngân hàng, bàn giao nhà và giấy tờ. Chăm sóc sau bán hàng lâu dài.",
     duration: "7-14 ngày",
     color: "from-green-500 to-teal-500",
   },
-]
+];
 
 export function ProcessSection() {
-  const titleAnimation = useScrollAnimation({ threshold: 0.2 })
-  const timelineAnimation = useScrollAnimation({ threshold: 0.1 })
-  const summaryAnimation = useScrollAnimation({ threshold: 0.3 })
+  const titleAnimation = useScrollAnimation({ threshold: 0.2 });
+  const timelineAnimation = useScrollAnimation({ threshold: 0.1 });
+  const summaryAnimation = useScrollAnimation({ threshold: 0.3 });
 
   return (
     <section className="py-20 bg-neutral-50">
       <Container maxWidth="lg">
         <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
           ref={titleAnimation.ref as any}
           className={`text-center mb-12 transition-all duration-1000 ${
-            titleAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            titleAnimation.isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
           }`}
         >
-          <Typography variant="overline" className="text-primary font-semibold tracking-wider mb-2">
+          <Typography
+            variant="overline"
+            className="text-primary font-semibold tracking-wider mb-2"
+          >
             QUY TRÌNH MUA BÁN
           </Typography>
           <Typography variant="h3" className="font-bold mb-4">
             Quy Trình <span className="text-primary">4 Bước</span> Đơn Giản
           </Typography>
-          <Typography variant="body1" color="text.secondary" className="max-w-2xl mx-auto">
-            Chúng tôi đồng hành cùng bạn từ tìm kiếm đến bàn giao, đảm bảo mọi thủ tục diễn ra nhanh chóng và an toàn
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            className="max-w-2xl mx-auto"
+          >
+            Chúng tôi đồng hành cùng bạn từ tìm kiếm đến bàn giao, đảm bảo mọi
+            thủ tục diễn ra nhanh chóng và an toàn
           </Typography>
         </div>
 
@@ -71,7 +94,9 @@ export function ProcessSection() {
           {/* Connection Line */}
           <div
             className={`hidden md:block absolute top-32 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 via-orange-500 to-green-500 transition-all duration-1500 ${
-              timelineAnimation.isVisible ? "opacity-20 scale-x-100" : "opacity-0 scale-x-0"
+              timelineAnimation.isVisible
+                ? "opacity-20 scale-x-100"
+                : "opacity-0 scale-x-0"
             }`}
             style={{ transformOrigin: "left" }}
           />
@@ -81,20 +106,30 @@ export function ProcessSection() {
               <Card
                 key={index}
                 className={`relative hover:shadow-xl transition-all duration-700 hover:-translate-y-2 ${
-                  timelineAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+                  timelineAnimation.isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-20"
                 }`}
                 style={{
-                  transitionDelay: timelineAnimation.isVisible ? `${index * 150}ms` : "0ms",
+                  transitionDelay: timelineAnimation.isVisible
+                    ? `${index * 150}ms`
+                    : "0ms",
                 }}
                 sx={{ borderRadius: 3 }}
               >
                 <CardContent className="p-6 text-center">
                   <Box
-                    className={`w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg transition-all duration-700 ${
-                      timelineAnimation.isVisible ? "scale-100 rotate-0" : "scale-0 -rotate-180"
+                    className={`w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${
+                      step.color
+                    } flex items-center justify-center shadow-lg transition-all duration-700 ${
+                      timelineAnimation.isVisible
+                        ? "scale-100 rotate-0"
+                        : "scale-0 -rotate-180"
                     }`}
                     style={{
-                      transitionDelay: timelineAnimation.isVisible ? `${index * 150 + 200}ms` : "0ms",
+                      transitionDelay: timelineAnimation.isVisible
+                        ? `${index * 150 + 200}ms`
+                        : "0ms",
                     }}
                   >
                     <step.icon className="w-10 h-10 text-white" />
@@ -112,7 +147,11 @@ export function ProcessSection() {
                     {step.title}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary" className="mb-4 leading-relaxed">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    className="mb-4 leading-relaxed"
+                  >
                     {step.description}
                   </Typography>
 
@@ -125,10 +164,14 @@ export function ProcessSection() {
                 {index < processSteps.length - 1 && (
                   <ArrowRight
                     className={`hidden md:block absolute -right-10 top-1/2 -translate-y-1/2 w-8 h-8 text-neutral-300 transition-all duration-700 ${
-                      timelineAnimation.isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                      timelineAnimation.isVisible
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 -translate-x-4"
                     }`}
                     style={{
-                      transitionDelay: timelineAnimation.isVisible ? `${index * 150 + 400}ms` : "0ms",
+                      transitionDelay: timelineAnimation.isVisible
+                        ? `${index * 150 + 400}ms`
+                        : "0ms",
                     }}
                   />
                 )}
@@ -137,10 +180,12 @@ export function ProcessSection() {
           </div>
         </div>
 
-        <Box
+        {/* <Box
           ref={summaryAnimation.ref as any}
           className={`text-center mt-12 transition-all duration-1000 ${
-            summaryAnimation.isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-10 scale-95"
+            summaryAnimation.isVisible
+              ? "opacity-100 translate-y-0 scale-100"
+              : "opacity-0 translate-y-10 scale-95"
           }`}
         >
           <Card
@@ -164,8 +209,8 @@ export function ProcessSection() {
               </Button>
             </CardContent>
           </Card>
-        </Box>
+        </Box> */}
       </Container>
     </section>
-  )
+  );
 }
