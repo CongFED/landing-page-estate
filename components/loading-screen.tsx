@@ -12,7 +12,7 @@ export function LoadingScreen() {
   useEffect(() => {
     const hasVisited = sessionStorage.getItem("hasVisited");
 
-    if (hasVisited) {
+    if (!hasVisited) {
       setIsVisible(true);
       sessionStorage.setItem("hasVisited", "true");
 
