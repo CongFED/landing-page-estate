@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { muiTheme } from "@/lib/mui-theme";
 import "./globals.css";
+import FloatingChat from "@/components/FloatingChat";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -45,6 +46,7 @@ export default function RootLayout({
         <ThemeProvider theme={muiTheme}>
           <CssBaseline />
           {children}
+          <FloatingChat />
         </ThemeProvider>
         <Analytics />
       </body>

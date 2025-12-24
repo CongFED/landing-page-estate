@@ -48,23 +48,12 @@ export function Footer() {
           sx={{ position: "relative", zIndex: 2, py: 8 }}
         >
           {/* Top Section */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "start",
-              justifyContent: "space-between",
-            }}
-          >
+          <Grid container spacing={4}>
             {/* Company Info */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} md={3}>
               <Box sx={{ mb: 3 }}>
-                <Image
-                  src={logo}
-                  alt="Banner"
-                  width={100}
-                  height={600}
-                  priority
-                />
+                <Image src={logo} alt="Logo" width={100} priority />
+
                 <Typography
                   variant="body2"
                   sx={{
@@ -72,11 +61,13 @@ export function Footer() {
                     lineHeight: 1.8,
                     mb: 3,
                     fontSize: "0.95rem",
+                    mt: 2,
                   }}
                 >
                   Đối tác tin cậy trong hành trình tìm kiếm không gian sống hoàn
                   hảo của bạn.
                 </Typography>
+
                 <Box sx={{ display: "flex", gap: 1.5 }}>
                   {[
                     {
@@ -93,31 +84,31 @@ export function Footer() {
                     },
                     {
                       Icon: Linkedin,
-                      href: "https://www.linkedin.com/in/c%C3%B4ng-nguy%E1%BB%85n-ph%C6%B0%E1%BB%9Bc-a926ab259?fbclid=IwY2xjawO3gQRleHRuA2FlbQIxMABicmlkETFkQlpjaUZEa1dBRWdDWTBIc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHtkrYqRWxF0wTPzBNrtiVLJuhUm3tibScTuCZ4Pfr4dczjrL0gF65k-iizpm_aem_LKs-oYNrjWpnoWg2XTl1hg",
+                      href: "https://www.linkedin.com/in/c%C3%B4ng-nguy%E1%BB%85n-ph%C6%B0%E1%BB%9Bc-a926ab259",
                     },
                   ].map((item, idx) => (
                     <MuiLink
                       key={idx}
                       href={item.href}
+                      target="_blank"
                       sx={{
-                        width: 42,
-                        height: 42,
+                        width: 40,
+                        height: 40,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         borderRadius: "50%",
                         backgroundColor: "rgba(212, 113, 61, 0.2)",
                         color: "#fff",
-                        transition: "all 0.3s ease",
                         border: "1px solid rgba(212, 113, 61, 0.5)",
+                        transition: "all 0.3s ease",
                         "&:hover": {
                           backgroundColor: "#D4713D",
-                          borderColor: "#D4713D",
                           transform: "translateY(-3px)",
                         },
                       }}
                     >
-                      <item.Icon size={20} />
+                      <item.Icon size={18} />
                     </MuiLink>
                   ))}
                 </Box>
@@ -132,6 +123,7 @@ export function Footer() {
               >
                 Liên Kết
               </Typography>
+
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 {["Giới Thiệu", "Dịch Vụ", "Tin Tức", "Tuyển Dụng"].map(
                   (item, idx) => (
@@ -139,13 +131,10 @@ export function Footer() {
                       key={idx}
                       href="#"
                       sx={{
-                        color: "rgba(255, 255, 255, 0.7)",
-                        textDecoration: "none",
+                        color: "rgba(255,255,255,0.7)",
                         fontSize: "0.95rem",
-                        transition: "color 0.3s ease",
-                        "&:hover": {
-                          color: "#D4713D",
-                        },
+                        textDecoration: "none",
+                        "&:hover": { color: "#D4713D" },
                       }}
                     >
                       {item}
@@ -163,6 +152,7 @@ export function Footer() {
               >
                 Dịch Vụ
               </Typography>
+
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 {["Mua Bán", "Cho Thuê", "Định Giá", "Tư Vấn"].map(
                   (item, idx) => (
@@ -170,13 +160,10 @@ export function Footer() {
                       key={idx}
                       href="#"
                       sx={{
-                        color: "rgba(255, 255, 255, 0.7)",
-                        textDecoration: "none",
+                        color: "rgba(255,255,255,0.7)",
                         fontSize: "0.95rem",
-                        transition: "color 0.3s ease",
-                        "&:hover": {
-                          color: "#D4713D",
-                        },
+                        textDecoration: "none",
+                        "&:hover": { color: "#D4713D" },
                       }}
                     >
                       {item}
@@ -187,13 +174,14 @@ export function Footer() {
             </Grid>
 
             {/* Contact */}
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} md={3}>
               <Typography
                 variant="h6"
                 sx={{ fontWeight: 700, mb: 2, color: "#fff" }}
               >
                 Liên Hệ
               </Typography>
+
               <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
                 <MuiLink
                   href="tel:0869154692"
@@ -201,39 +189,32 @@ export function Footer() {
                     display: "flex",
                     gap: 1,
                     alignItems: "center",
-                    color: "rgba(255, 255, 255, 0.7)",
+                    color: "rgba(255,255,255,0.7)",
                     textDecoration: "none",
-                    fontSize: "0.95rem",
-                    transition: "color 0.3s ease",
-                    "&:hover": {
-                      color: "#D4713D",
-                    },
+                    "&:hover": { color: "#D4713D" },
                   }}
                 >
-                  <Phone size={18} style={{ color: "#D4713D" }} />
-                  <span>0869 154 692</span>
+                  <Phone size={18} color="#D4713D" />
+                  0869 154 692
                 </MuiLink>
+
                 <MuiLink
                   href="mailto:npc.it.dev@gmail.com"
                   sx={{
                     display: "flex",
                     gap: 1,
                     alignItems: "center",
-                    color: "rgba(255, 255, 255, 0.7)",
+                    color: "rgba(255,255,255,0.7)",
                     textDecoration: "none",
-                    fontSize: "0.95rem",
-                    transition: "color 0.3s ease",
-                    "&:hover": {
-                      color: "#D4713D",
-                    },
+                    "&:hover": { color: "#D4713D" },
                   }}
                 >
-                  <Mail size={18} style={{ color: "#D4713D" }} />
-                  <span>npc.it.dev@gmail.com</span>
+                  <Mail size={18} color="#D4713D" />
+                  npc.it.dev@gmail.com
                 </MuiLink>
               </Box>
             </Grid>
-          </div>
+          </Grid>
 
           {/* Divider */}
           <Divider sx={{ backgroundColor: "rgba(212, 113, 61, 0.3)", mb: 3 }} />

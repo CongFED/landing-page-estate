@@ -4,15 +4,24 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 
 export function LoadingScreen() {
-  const [isVisible, setIsVisible] = useState(true);
-  const text = "PHUOCONG ESTATE";
+  const [isVisible, setIsVisible] = useState(false);
+
+  const leftText = "PHUOCONG";
+  const rightText = "ESTATE";
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 2800);
+    const hasVisited = sessionStorage.getItem("hasVisited");
 
-    return () => clearTimeout(timer);
+    if (!hasVisited) {
+      setIsVisible(true);
+      sessionStorage.setItem("hasVisited", "true");
+
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 2800);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   if (!isVisible) return null;
@@ -21,11 +30,8 @@ export function LoadingScreen() {
     <Box
       sx={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "#000000",
+        inset: 0,
+        bgcolor: "#000",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -34,132 +40,105 @@ export function LoadingScreen() {
         animation: "fadeOut 0.8s ease-out forwards",
         animationDelay: "2s",
         "@keyframes fadeOut": {
-          from: {
-            opacity: 1,
-            visibility: "visible",
-          },
-          to: {
-            opacity: 0,
-            visibility: "hidden",
-          },
+          from: { opacity: 1 },
+          to: { opacity: 0, visibility: "hidden" },
         },
       }}
     >
+      {/* TEXT CONTAINER */}
       <Box
         sx={{
-          position: "relative",
-          zIndex: 1,
-          textAlign: "center",
           display: "flex",
+          flexDirection: { xs: "column", sm: "row" }, // 🔥 split mobile
           alignItems: "center",
-          gap: 3,
+          gap: { xs: 0.5, sm: 2 },
+          textAlign: "center",
         }}
       >
-        {/* Left text section */}
-        <Box sx={{ display: "flex", gap: "4px" }}>
-          {text
-            .slice(0, 9)
-            .split("")
-            .map((char, index) => (
-              <Box
-                key={`left-${index}`}
-                sx={{
-                  fontSize: "72px",
-                  fontWeight: 300,
-                  color: "#ffffff",
-                  letterSpacing: "4px",
-                  fontFamily: "'Helvetica Neue', Arial, sans-serif",
-                  animation:
-                    "slideInLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
-                  animationDelay: `${index * 0.12}s`,
-                  "@keyframes slideInLeft": {
-                    "0%": {
-                      opacity: 0,
-                      transform: "translateX(-30px)",
-                    },
-                    "100%": {
-                      opacity: 1,
-                      transform: "translateX(0)",
-                    },
-                  },
-                }}
-              >
-                {char}
-              </Box>
-            ))}
+        {/* LEFT TEXT */}
+        <Box sx={{ display: "flex" }}>
+          {leftText.split("").map((char, index) => (
+            <Box
+              key={index}
+              component="span"
+              sx={{
+                fontSize: {
+                  xs: "clamp(32px, 8vw, 40px)",
+                  sm: "clamp(48px, 6vw, 64px)",
+                  md: "72px",
+                },
+                fontWeight: 300,
+                color: "#fff",
+                letterSpacing: { xs: "2px", sm: "4px" },
+                fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                opacity: 0,
+                animation:
+                  "slideUp 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards",
+                animationDelay: `${index * 0.1}s`,
+                "@keyframes slideUp": {
+                  from: { opacity: 0, transform: "translateY(20px)" },
+                  to: { opacity: 1, transform: "translateY(0)" },
+                },
+              }}
+            >
+              {char}
+            </Box>
+          ))}
         </Box>
 
-        {/* Animated white rectangle */}
-
-        {/* Right text section */}
-        <Box sx={{ display: "flex", gap: "4px" }}>
-          {text
-            .slice(10)
-            .split("")
-            .map((char, index) => (
-              <Box
-                key={`right-${index}`}
-                sx={{
-                  fontSize: "72px",
-                  fontWeight: 300,
-                  color: "#ffffff",
-                  letterSpacing: "4px",
-                  fontFamily: "'Helvetica Neue', Arial, sans-serif",
-                  animation:
-                    "slideInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
-                  animationDelay: `${0.36 + index * 0.12}s`,
-                  "@keyframes slideInRight": {
-                    "0%": {
-                      opacity: 0,
-                      transform: "translateX(30px)",
-                    },
-                    "100%": {
-                      opacity: 1,
-                      transform: "translateX(0)",
-                    },
-                  },
-                }}
-              >
-                {char}
-              </Box>
-            ))}
+        {/* RIGHT TEXT */}
+        <Box sx={{ display: "flex" }}>
+          {rightText.split("").map((char, index) => (
+            <Box
+              key={index}
+              component="span"
+              sx={{
+                fontSize: {
+                  xs: "clamp(32px, 8vw, 40px)",
+                  sm: "clamp(48px, 6vw, 64px)",
+                  md: "72px",
+                },
+                fontWeight: 300,
+                color: "#fff",
+                letterSpacing: { xs: "2px", sm: "4px" },
+                fontFamily: "'Helvetica Neue', Arial, sans-serif",
+                opacity: 0,
+                animation:
+                  "slideUp 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards",
+                animationDelay: `${0.6 + index * 0.1}s`,
+              }}
+            >
+              {char}
+            </Box>
+          ))}
         </Box>
       </Box>
 
-      {/* Loading indicator line */}
-      <Box
+      {/* LOADING LINE */}
+      {/* <Box
         sx={{
-          position: "absolute",
-          bottom: "60px",
-          width: "200px",
+          mt: { xs: 4, sm: 6 },
+          width: { xs: 140, sm: 200 },
           height: "2px",
-          background: "#ffffff",
-          opacity: 0.3,
+          bgcolor: "rgba(255,255,255,0.3)",
           borderRadius: "1px",
           overflow: "hidden",
+          position: "relative",
           "&::after": {
             content: '""',
             position: "absolute",
-            top: 0,
-            left: "-100%",
-            width: "100%",
-            height: "100%",
-            background: "#ffffff",
-            animation: "loadingLine 1.5s ease-in-out infinite",
+            inset: 0,
+            transform: "translateX(-100%)",
+            bgcolor: "#fff",
+            animation: "loadingLine 1.4s ease-in-out infinite",
             "@keyframes loadingLine": {
-              "0%": {
-                left: "-100%",
-              },
-              "50%": {
-                left: "100%",
-              },
-              "100%": {
-                left: "100%",
-              },
+              "0%": { transform: "translateX(-100%)" },
+              "50%": { transform: "translateX(100%)" },
+              "100%": { transform: "translateX(100%)" },
             },
           },
         }}
-      />
+      /> */}
     </Box>
   );
 }

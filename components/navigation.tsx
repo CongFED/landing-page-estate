@@ -92,13 +92,13 @@ export function Navigation() {
               gap: 2,
             }}
           >
-            <MuiButton
+            {/* <MuiButton
               variant="text"
               size="small"
               sx={{ textTransform: "none" }}
             >
               Đăng Nhập
-            </MuiButton>
+            </MuiButton> */}
             <MuiButton
               variant="contained"
               size="small"

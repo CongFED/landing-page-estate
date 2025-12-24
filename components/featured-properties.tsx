@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Bed, Bath, Maximize, Heart } from "lucide-react";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import Link from "next/link";
 
 const properties = [
   {
@@ -106,167 +107,170 @@ function PropertyCard({
 
   const visibleProperties = ALL_PROPERTIES.slice(0, visibleCount);
   return (
-    <MuiCard
-      className="group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      sx={{
-        overflow: "hidden",
-        transition: "all 0.5s",
-        "&:hover": {
-          boxShadow: 6,
-        },
-      }}
-    >
-      <Box sx={{ position: "relative", overflow: "hidden" }}>
-        <CardMedia
-          component="img"
-          height="240"
-          image={property.image || "/placeholder.svg"}
-          alt={property.title}
-          sx={{
-            aspectRatio: "4/3",
-            transition: "transform 0.7s",
-            transform: isHovered ? "scale(1.1)" : "scale(1)",
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)",
-            opacity: isHovered ? 1 : 0,
-            transition: "opacity 0.3s",
-          }}
-        />
+    <Link href={`/properties/${property.id}`} className="h-full">
+      <MuiCard
+        className="group"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        sx={{
+          overflow: "hidden",
+          transition: "all 0.5s",
+          "&:hover": {
+            boxShadow: 6,
+          },
+        }}
+      >
+        <Box sx={{ position: "relative", overflow: "hidden" }}>
+          <CardMedia
+            component="img"
+            height="240"
+            image={property.image || "/placeholder.svg"}
+            alt={property.title}
+            sx={{
+              aspectRatio: "4/3",
+              transition: "transform 0.7s",
+              transform: isHovered ? "scale(1.1)" : "scale(1)",
+            }}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(to top, rgba(0,0,0,0.6), transparent)",
+              opacity: isHovered ? 1 : 0,
+              transition: "opacity 0.3s",
+            }}
+          />
 
-        {property.tag && (
-          <MuiChip
-            label={property.tag}
-            color="primary"
-            size="small"
+          {property.tag && (
+            <MuiChip
+              label={property.tag}
+              color="primary"
+              size="small"
+              sx={{
+                position: "absolute",
+                top: 16,
+                left: 16,
+                fontWeight: 600,
+              }}
+            />
+          )}
+
+          <IconButton
+            onClick={() => setIsFavorite(!isFavorite)}
             sx={{
               position: "absolute",
               top: 16,
-              left: 16,
-              fontWeight: 600,
+              right: 16,
+              bgcolor: "rgba(255, 255, 255, 0.8)",
+              "&:hover": {
+                bgcolor: "rgba(255, 255, 255, 1)",
+              },
             }}
-          />
-        )}
-
-        <IconButton
-          onClick={() => setIsFavorite(!isFavorite)}
-          sx={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-            bgcolor: "rgba(255, 255, 255, 0.8)",
-            "&:hover": {
-              bgcolor: "rgba(255, 255, 255, 1)",
-            },
-          }}
-        >
-          <Heart
-            size={18}
-            className={`transition-colors ${
-              isFavorite ? "fill-red-500 text-red-500" : "text-foreground"
-            }`}
-          />
-        </IconButton>
-
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 16,
-            left: 16,
-            right: 16,
-            transform: isHovered ? "translateY(0)" : "translateY(16px)",
-            opacity: isHovered ? 1 : 0,
-            transition: "all 0.3s",
-          }}
-        >
-          <Button
-            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 "
-            style={{ cursor: "pointer" }}
           >
-            Xem Chi Tiết
-          </Button>
-        </Box>
-      </Box>
+            <Heart
+              size={18}
+              className={`transition-colors ${
+                isFavorite ? "fill-red-500 text-red-500" : "text-foreground"
+              }`}
+            />
+          </IconButton>
 
-      <MuiCardContent sx={{ p: 2.5 }}>
-        <Typography
-          variant="h6"
-          fontWeight={600}
-          gutterBottom
-          className="leading-snug"
-        >
-          {property.title}
-        </Typography>
-
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}>
-          <MapPin size={16} className="text-muted-foreground" />
-          <Typography variant="body2" color="text.secondary">
-            {property.location}
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            mb: 2,
-            pb: 2,
-            borderBottom: "1px solid",
-            borderColor: "divider",
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <Bed size={18} className="text-muted-foreground" />
-              <Typography variant="body2" color="text.secondary">
-                {property.beds}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <Bath size={18} className="text-muted-foreground" />
-              <Typography variant="body2" color="text.secondary">
-                {property.baths}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <Maximize size={18} className="text-muted-foreground" />
-              <Typography variant="body2" color="text.secondary">
-                {property.area}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box>
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              display="block"
-              gutterBottom
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 16,
+              left: 16,
+              right: 16,
+              transform: isHovered ? "translateY(0)" : "translateY(16px)",
+              opacity: isHovered ? 1 : 0,
+              transition: "all 0.3s",
+            }}
+          >
+            <Button
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 "
+              style={{ cursor: "pointer" }}
             >
-              Giá bán
-            </Typography>
-            <Typography variant="h5" color="primary" fontWeight={700}>
-              {property.price}
-            </Typography>
+              Xem Chi Tiết
+            </Button>
           </Box>
         </Box>
-      </MuiCardContent>
-    </MuiCard>
+
+        <MuiCardContent sx={{ p: 2.5 }}>
+          <Typography
+            variant="h6"
+            fontWeight={600}
+            gutterBottom
+            className="leading-snug"
+          >
+            {property.title}
+          </Typography>
+
+          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}>
+            <MapPin size={16} className="text-muted-foreground" />
+            <Typography variant="body2" color="text.secondary">
+              {property.location}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              mb: 2,
+              pb: 2,
+              borderBottom: "1px solid",
+              borderColor: "divider",
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <Bed size={18} className="text-muted-foreground" />
+                <Typography variant="body2" color="text.secondary">
+                  {property.beds}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <Bath size={18} className="text-muted-foreground" />
+                <Typography variant="body2" color="text.secondary">
+                  {property.baths}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                <Maximize size={18} className="text-muted-foreground" />
+                <Typography variant="body2" color="text.secondary">
+                  {property.area}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box>
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                display="block"
+                gutterBottom
+              >
+                Giá bán
+              </Typography>
+              <Typography variant="h5" color="primary" fontWeight={700}>
+                {property.price}
+              </Typography>
+            </Box>
+          </Box>
+        </MuiCardContent>
+      </MuiCard>
+    </Link>
   );
 }
 
