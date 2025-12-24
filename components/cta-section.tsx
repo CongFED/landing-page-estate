@@ -41,8 +41,8 @@ export function CTASection() {
 
     try {
       await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        "service_9gwugqa",
+        "template_50meekj",
         {
           name: formData.name,
           phone: formData.phone,
@@ -50,7 +50,7 @@ export function CTASection() {
           message: formData.message || "Không có lời nhắn",
           time: new Date().toLocaleString("vi-VN"),
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        "zjRByL0fWqBu1pstG"
       );
 
       setSubmitted(true);
