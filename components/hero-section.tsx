@@ -228,7 +228,7 @@ export function HeroSection() {
 
           {/* Right Side - Image Carousel */}
           <Slide direction="left" in={isVisible} timeout={1000}>
-            <div className="relative h-[600px] lg:h-[700px]">
+            <div className="relative h-[600px] lg:h-[700px] pb-4 lg:pb-0">
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
                 {images.map((src, index) => (
                   <div
@@ -267,7 +267,7 @@ export function HeroSection() {
                   elevation={4}
                   sx={{
                     position: "absolute",
-                    bottom: 32,
+                    bottom: 40,
                     left: 32,
                     p: 2,
                     maxWidth: 280,

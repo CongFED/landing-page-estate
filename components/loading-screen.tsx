@@ -12,7 +12,7 @@ export function LoadingScreen() {
   useEffect(() => {
     const hasVisited = sessionStorage.getItem("hasVisited");
 
-    if (!hasVisited) {
+    if (hasVisited) {
       setIsVisible(true);
       sessionStorage.setItem("hasVisited", "true");
 
@@ -30,6 +30,7 @@ export function LoadingScreen() {
     <Box
       sx={{
         position: "fixed",
+        height: "100vh",
         inset: 0,
         bgcolor: "#000",
         display: "flex",
