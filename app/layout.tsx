@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { muiTheme } from "@/lib/mui-theme";
 import "./globals.css";
 import FloatingChat from "@/components/FloatingChat";
+import ReactQueryProvider from "@/src/providers/ReactQueryProvider";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -45,7 +46,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         <ThemeProvider theme={muiTheme}>
           <CssBaseline />
-          {children}
+          <ReactQueryProvider> {children}</ReactQueryProvider>
           <FloatingChat />
         </ThemeProvider>
         <Analytics />

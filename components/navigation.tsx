@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+
 import {
   AppBar,
   Toolbar,
@@ -8,14 +12,16 @@ import {
   IconButton,
   Drawer,
   List,
-  ListItem,
+  ListItemButton,
   Box,
   Container,
 } from "@mui/material";
+
 import { Menu, X } from "lucide-react";
 import logo from "@/public/PHUOCONG.png";
-import Image from "next/image";
+
 export function Navigation() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,11 +33,17 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ Tự đóng menu mobile khi đổi route
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   const navLinks = [
-    { href: "#properties", label: "Dự Án" },
-    { href: "#services", label: "Dịch Vụ" },
-    { href: "#about", label: "Về Chúng Tôi" },
-    { href: "#contact", label: "Liên Hệ" },
+    { href: "/", label: "Trang chủ" },
+    { href: "/about", label: "Về Chúng Tôi" },
+    { href: "/projects", label: "Dự Án" },
+    { href: "/news", label: "Tin tức" },
+    { href: "/contact", label: "Liên Hệ" },
   ];
 
   return (
@@ -39,78 +51,75 @@ export function Navigation() {
       position="fixed"
       elevation={isScrolled ? 1 : 0}
       sx={{
-        bgcolor: isScrolled ? "rgba(250, 250, 249, 0.95)" : "transparent",
+        bgcolor: isScrolled ? "rgba(250,250,249,0.95)" : "transparent",
         backdropFilter: isScrolled ? "blur(12px)" : "none",
-        transition: "all 0.3s",
+        transition: "all 0.3s ease",
       }}
     >
       <Container maxWidth="xl">
         <Toolbar sx={{ py: 1, justifyContent: "space-between" }}>
           {/* Logo */}
-          <Box
-            sx={{ fontSize: "1.5rem", fontWeight: 700, color: "text.primary" }}
-          >
-            <Image src={logo} alt="Banner" width={100} height={600} priority />
-          </Box>
+          <Link href="/" style={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src={logo}
+              alt="Phuoc Ong"
+              width={100}
+              height={40}
+              priority
+            />
+          </Link>
 
           {/* Desktop Menu */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
-              alignItems: "center",
               gap: 4,
+              alignItems: "center",
             }}
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                style={{
-                  fontSize: "0.875rem",
-                  fontWeight: 500,
-                  color: "var(--color-foreground)",
-                  textDecoration: "none",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "var(--color-primary)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "var(--color-foreground)")
-                }
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    color: isActive
+                      ? "var(--color-primary)"
+                      : "var(--color-foreground)",
+                    borderBottom: isActive
+                      ? "2px solid var(--color-primary)"
+                      : "2px solid transparent",
+                    paddingBottom: 4,
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </Box>
 
-          {/* Desktop Buttons */}
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            {/* <MuiButton
-              variant="text"
-              size="small"
-              sx={{ textTransform: "none" }}
-            >
-              Đăng Nhập
-            </MuiButton> */}
+          {/* Desktop CTA */}
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <MuiButton
+              component={Link}
+              href="/contact"
               variant="contained"
               size="small"
               sx={{ textTransform: "none" }}
             >
-              <a href="#contact">Đăng Ký Tư Vấn</a>
+              Đăng Ký Tư Vấn
             </MuiButton>
           </Box>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu icon */}
           <IconButton
-            sx={{ display: { xs: "block", md: "none" } }}
+            sx={{ display: { xs: "flex", md: "none" } }}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -124,39 +133,32 @@ export function Navigation() {
         open={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       >
-        <Box sx={{ width: 250, pt: 2 }}>
+        <Box sx={{ width: 260, pt: 2 }}>
           <List>
-            {navLinks.map((link) => (
-              <ListItem key={link.href}>
-                <a
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <ListItemButton
+                  key={link.href}
+                  component={Link}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  style={{
+                  selected={isActive}
+                  sx={{
                     fontSize: "0.875rem",
-                    fontWeight: 500,
-                    color: "var(--color-foreground)",
-                    textDecoration: "none",
-                    width: "100%",
+                    fontWeight: 600,
                   }}
                 >
                   {link.label}
-                </a>
-              </ListItem>
-            ))}
+                </ListItemButton>
+              );
+            })}
           </List>
-          <Box
-            sx={{
-              px: 2,
-              pt: 2,
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
-            {/* <MuiButton variant="text" fullWidth sx={{ textTransform: "none" }}>
-              Đăng Nhập
-            </MuiButton> */}
+
+          <Box sx={{ px: 2, pt: 2 }}>
             <MuiButton
+              component={Link}
+              href="/contact"
               variant="contained"
               fullWidth
               sx={{ textTransform: "none" }}

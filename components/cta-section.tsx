@@ -158,15 +158,8 @@ export function CTASection() {
                 }}
               >
                 <form onSubmit={handleSubmit}>
-                  <Grid
-                    container
-                    sx={{
-                      mb: 3,
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: 3,
-                    }}
-                  >
+                  <Grid container spacing={3} sx={{ mb: 3 }}>
+                    {/* Họ và tên */}
                     <Grid item xs={12} sm={6}>
                       <Typography
                         variant="body2"
@@ -178,33 +171,18 @@ export function CTASection() {
                       >
                         Họ và tên *
                       </Typography>
+
                       <TextField
                         fullWidth
                         placeholder="Nhập họ tên của bạn"
                         value={formData.name}
                         onChange={handleChange("name")}
                         required
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            bgcolor: "rgba(255, 255, 255, 0.05)",
-                            color: "white",
-                            "& fieldset": {
-                              borderColor: "rgba(255, 255, 255, 0.2)",
-                            },
-                            "&:hover fieldset": {
-                              borderColor: "rgba(255, 255, 255, 0.3)",
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "#C86432",
-                            },
-                          },
-                          "& .MuiOutlinedInput-input::placeholder": {
-                            color: "rgba(255, 255, 255, 0.5)",
-                            opacity: 1,
-                          },
-                        }}
+                        sx={inputStyle}
                       />
                     </Grid>
+
+                    {/* Số điện thoại */}
                     <Grid item xs={12} sm={6}>
                       <Typography
                         variant="body2"
@@ -216,31 +194,15 @@ export function CTASection() {
                       >
                         Số điện thoại *
                       </Typography>
+
                       <TextField
                         fullWidth
+                        type="number"
                         placeholder="0869 154 692"
                         value={formData.phone}
                         onChange={handleChange("phone")}
                         required
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            bgcolor: "rgba(255, 255, 255, 0.05)",
-                            color: "white",
-                            "& fieldset": {
-                              borderColor: "rgba(255, 255, 255, 0.2)",
-                            },
-                            "&:hover fieldset": {
-                              borderColor: "rgba(255, 255, 255, 0.3)",
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "#C86432",
-                            },
-                          },
-                          "& .MuiOutlinedInput-input::placeholder": {
-                            color: "rgba(255, 255, 255, 0.5)",
-                            opacity: 1,
-                          },
-                        }}
+                        sx={inputStyle}
                       />
                     </Grid>
                   </Grid>
@@ -533,3 +495,22 @@ export function CTASection() {
     </section>
   );
 }
+const inputStyle = {
+  "& .MuiOutlinedInput-root": {
+    bgcolor: "rgba(255, 255, 255, 0.05)",
+    color: "white",
+    "& fieldset": {
+      borderColor: "rgba(255, 255, 255, 0.2)",
+    },
+    "&:hover fieldset": {
+      borderColor: "rgba(255, 255, 255, 0.3)",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#C86432",
+    },
+  },
+  "& .MuiOutlinedInput-input::placeholder": {
+    color: "rgba(255, 255, 255, 0.5)",
+    opacity: 1,
+  },
+};

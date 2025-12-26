@@ -273,8 +273,10 @@ function PropertyCard({
     </Link>
   );
 }
-
-export function FeaturedProperties() {
+interface Props {
+  color?: string;
+}
+export function FeaturedProperties({ color }: Props) {
   const titleAnimation = useScrollAnimation({ threshold: 0.2 });
   const propertiesAnimation = useScrollAnimation({ threshold: 0.1 });
   const buttonAnimation = useScrollAnimation({ threshold: 0.3 });
@@ -287,7 +289,11 @@ export function FeaturedProperties() {
 
   const visibleProperties = ALL_PROPERTIES.slice(0, visibleCount);
   return (
-    <section id="properties" className="py-20 bg-background">
+    <section
+      id="properties"
+      className="py-20 bg-background"
+      style={{ background: color }}
+    >
       <div className="container mx-auto px-4">
         <div
           ref={titleAnimation.ref as any}

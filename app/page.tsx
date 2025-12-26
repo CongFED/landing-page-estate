@@ -19,7 +19,7 @@ export default function RealEstatePage() {
       <Navigation />
       <HeroSection />
       <StatsSection />
-      <FeaturedProperties />
+      <FeaturedProperties color="lab(96.5018% 1.68455 3.32789)" />
 
       <ServicesSection />
       {/* <SocialProofSection /> */}
